@@ -1,29 +1,32 @@
+/*
+Unit tests are really about testing what is specific to that component. 
+In this case you only need to test that you have properly configured the Route elements. 
+Any child components have their own tests, and Switch and Route should be tested in the library they are from.
+
+https://stackoverflow.com/a/51586418
+*/
 import React from 'react';
-import { mount, shallow } from "enzyme";
-import { MemoryRouter } from "react-router-dom";
+import { shallow } from "enzyme";
 import { Authentication } from "./Authentication";
+import SignIn from '../../components/SignIn/SignIn';
+import SignUp from '../../components/SignUp/SignUp';
 
 describe('Authentication', () => {
+    let component;
+    beforeEach(() => {
+        component = shallow(<Authentication />);
+    })
     it('should render', () => {
-        const component = shallow(<Authentication />);
         expect(component.find('#wrapper')).toHaveLength(1);
     });
 
     it('should render "SignIn"', () => {
-        const component = mount(
-            <MemoryRouter initialEntries={['/sign-in']} initialIndex={0}>
-                <Authentication  />
-            </MemoryRouter>
-        );        
-        expect(component.find('SignIn')).toHaveLength(1);
+        const routeEl = component.find('Route[path="/sign-in"]');
+        expect(routeEl.first().prop('component')).toBe(SignIn);
     });
 
     it('should render "SignUp"', () => {
-        const component = mount(
-            <MemoryRouter initialEntries={['/sign-up']}>
-                <Authentication  />
-            </MemoryRouter>
-        );
-        expect(component.find('SignUp')).toHaveLength(1);
+        const routeEl = component.find('Route[path="/sign-up"]');
+        expect(routeEl.first().prop('component')).toBe(SignUp);
     });
 })
