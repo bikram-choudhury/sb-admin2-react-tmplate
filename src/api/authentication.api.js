@@ -12,8 +12,9 @@ export const saveUsers = (user, dispatch) => {
                 refreshToken: data.refresh_token,
                 tokenType: data.token_type,
             };
-            dispatch(setAuthToken(token))
+            return token;
         })
+        .then(token => dispatch(setAuthToken(token)))
         .catch(error => {
             if (error.response) {
                 console.error(error.response.data.message);

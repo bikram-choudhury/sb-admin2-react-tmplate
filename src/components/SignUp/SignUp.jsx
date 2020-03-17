@@ -1,22 +1,23 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { saveUsers } from '../../api/authentication.api';
-import { AuthContext } from '../../contexts/AuthContext';
+import { useAuthContext } from '../../contexts/AuthContext';
+
+export const signUpFormOnSubmit = (authDispatch, formData) => {
+    const dataToSave = { ...formData, username: formData.email };
+    delete dataToSave.confirmPassword;
+    saveUsers(dataToSave, authDispatch);
+};
+export const validatePassword = (password, confirmPassword) => {
+    return password === confirmPassword;
+}
 
 const SignUp = () => {
-    const { authDispatch } = useContext(AuthContext);
-    
+
+    const { authDispatch } = useAuthContext();
     const { register, handleSubmit, errors, watch } = useForm();
-    
     const watchPassword = watch('password');
-    const validatePassword = (password) => {
-        return password === watchPassword;
-    }
-    const signUpFormOnSubmit = (formData) => {
-        const dataToSave = {...formData};
-        delete dataToSave.confirmPassword;
-        saveUsers(dataToSave, authDispatch);
-    }
+
     return (
         <div className="container">
             <div className="card o-hidden border-0 shadow-lg my-5">
@@ -29,7 +30,7 @@ const SignUp = () => {
                                 <div className="text-center">
                                     <h1 className="h4 text-gray-900 mb-4">Create an Account!</h1>
                                 </div>
-                                <form className="user sign-up-form" onSubmit={handleSubmit(signUpFormOnSubmit)}>
+                                <form className="user sign-up-form" onSubmit={handleSubmit(signUpFormOnSubmit.bind(null, authDispatch))}>
                                     <div className="form-group row">
                                         <div className="col-sm-6 mb-3 mb-sm-0">
                                             <input
@@ -44,7 +45,7 @@ const SignUp = () => {
                                                 errors &&
                                                     errors.firstName &&
                                                     errors.firstName.type === 'required' ? (
-                                                        <small className="text-danger">First Name is required</small>
+                                                        <small data-error="firstname" className="text-danger">First Name is required</small>
                                                     ) : null
                                             }
                                         </div>
@@ -54,13 +55,14 @@ const SignUp = () => {
                                                 className="form-control form-control-user"
                                                 placeholder="Last Name"
                                                 name="lastName"
+                                                aria-invalid={errors.lastName ? "true" : "false"}
                                                 ref={register({ required: true })}
                                             />
                                             {
                                                 errors &&
-                                                    errors.firstName &&
-                                                    errors.firstName.type === 'required' ? (
-                                                        <small className="text-danger">First Name is required</small>
+                                                    errors.lastName &&
+                                                    errors.lastName.type === 'required' ? (
+                                                        <small data-error="lastname" className="text-danger">First Name is required</small>
                                                     ) : null
                                             }
                                         </div>
@@ -71,13 +73,14 @@ const SignUp = () => {
                                             className="form-control  form-control-user"
                                             placeholder="Email Address"
                                             name="email"
+                                            aria-invalid={errors.email ? "true" : "false"}
                                             ref={register({ required: true })}
                                         />
                                         {
                                             errors &&
-                                                errors.firstName &&
-                                                errors.firstName.type === 'required' ? (
-                                                    <small className="text-danger">First Name is required</small>
+                                                errors.email &&
+                                                errors.email.type === 'required' ? (
+                                                    <small data-error="email" className="text-danger">First Name is required</small>
                                                 ) : null
                                         }
                                     </div>
@@ -88,13 +91,14 @@ const SignUp = () => {
                                                 className="form-control form-control-user"
                                                 placeholder="Password"
                                                 name="password"
+                                                aria-invalid={errors.password ? "true" : "false"}
                                                 ref={register({ required: true })}
                                             />
                                             {
                                                 errors &&
-                                                    errors.firstName &&
-                                                    errors.firstName.type === 'required' ? (
-                                                        <small className="text-danger">First Name is required</small>
+                                                    errors.password &&
+                                                    errors.password.type === 'required' ? (
+                                                        <small data-error="password" className="text-danger">Password is required</small>
                                                     ) : null
                                             }
                                         </div>
@@ -104,25 +108,26 @@ const SignUp = () => {
                                                 className="form-control form-control-user"
                                                 placeholder="Repeat Password"
                                                 name="confirmPassword"
-                                                ref={register({ required: true, validate: validatePassword })}
+                                                aria-invalid={errors.confirmPassword ? "true" : "false"}
+                                                ref={register({ required: true, validate: validatePassword.bind(null, watchPassword) })}
                                             />
                                             {
                                                 errors &&
                                                     errors.confirmPassword &&
                                                     errors.confirmPassword.type === 'required' ? (
-                                                        <small className="text-danger">Repeat Password is required</small>
+                                                        <small data-error="repeatpassword" className="text-danger">Repeat Password is required</small>
                                                     ) : null
                                             }
                                             {
                                                 errors &&
                                                     errors.confirmPassword &&
                                                     errors.confirmPassword.type === 'validate' ? (
-                                                        <small className="text-danger">Repeat Password is not same as Password</small>
+                                                        <small data-error="repeatpassword" className="text-danger">Repeat Password is not same as Password</small>
                                                     ) : null
                                             }
                                         </div>
                                     </div>
-                                    <button type="submit" className="btn btn-primary btn-user btn-block"> Register Account </button>
+                                    <button type="submit" className="btn btn-primary btn-user btn-block user-register"> Register Account </button>
                                     <hr />
                                     <span className="btn btn-google btn-user btn-block">
                                         <i className="fab fa-google fa-fw"></i> Register with Google
