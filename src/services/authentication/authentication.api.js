@@ -1,6 +1,6 @@
 import Axios from 'axios';
-import { AUTH_SERVER_URL } from './../../settings';
-import { setAuthToken } from '../actions/auth/auth.action';
+import { AUTH_SERVER_URL } from './../../../settings';
+import { setAuthToken } from '../../actions/auth/auth.action';
 
 export const saveUsers = (user, dispatch) => {
     const URL = `${AUTH_SERVER_URL}/auth/register`;

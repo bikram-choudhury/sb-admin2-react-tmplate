@@ -1,7 +1,7 @@
 import mockAxios from 'axios';
-import { AUTH_SERVER_URL } from './../../settings';
+import { AUTH_SERVER_URL } from './../../../settings';
 import { saveUsers } from './authentication.api';
-import { setAuthToken } from '../actions/auth/auth.action';
+import { setAuthToken } from '../../actions/auth/auth.action';
 
 describe('Authentication API', () => {
     it('saveUsers', async () => {

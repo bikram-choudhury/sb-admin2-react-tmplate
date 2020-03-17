@@ -2,7 +2,7 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import * as AuthContext from '../../contexts/AuthContext';
 import SignUp, { signUpFormOnSubmit, validatePassword } from './SignUp';
-import * as AuthApi from '../../api/authentication.api';
+import * as AuthApi from '../../services/authentication/authentication.api';
 import * as formHook from 'react-hook-form';
 
 describe('SignUp Component', () => {

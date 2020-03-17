@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { saveUsers } from '../../api/authentication.api';
 import { useAuthContext } from '../../contexts/AuthContext';
+import { saveUsers } from '../../services/authentication/authentication.api';
 
 export const signUpFormOnSubmit = (authDispatch, formData) => {
     const dataToSave = { ...formData, username: formData.email };
