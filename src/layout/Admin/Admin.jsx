@@ -1,5 +1,5 @@
-import React from 'react';
+import React from "react";
 
-export const Admin = (props) => {
-    return <div>This is Admin layout.</div>
-}
+export const Admin = props => {
+	return <div>This is Admin layout.</div>;
+};
