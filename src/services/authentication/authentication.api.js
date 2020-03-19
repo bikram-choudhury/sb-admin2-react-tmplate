@@ -7,9 +7,9 @@ export const submitPostRequest = (URL, user, dispatch) => {
 		.then(response => {
 			const { data } = response;
 			const token = {
-				accessToken: data.access_token,
-				refreshToken: data.refresh_token,
-				tokenType: data.token_type
+				accessToken: data.accessToken,
+				refreshToken: data.refreshToken,
+				tokenType: data.tokenType
 			};
 			return token;
 		})

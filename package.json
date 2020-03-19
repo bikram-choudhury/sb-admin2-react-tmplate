@@ -20,6 +20,11 @@
     "postinstall": "npm start",
     "ci": "run-s lint test:coverage"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run ci"
+    }
+  },
   "dependencies": {
     "axios": "^0.19.0",
     "babel-polyfill": "^6.26.0",
