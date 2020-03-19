@@ -1,10 +1,30 @@
 import mockAxios from 'axios';
-import { AUTH_SERVER_URL } from './../../../settings';
-import { saveUsers } from './authentication.api';
 import { setAuthToken } from '../../actions/auth/auth.action';
+import { AUTH_SERVER_URL } from './../../../settings';
+import { authenticateUser, submitPostRequest, saveUsers } from './authentication.api';
 
 describe('Authentication API', () => {
-    it('saveUsers', async () => {
+    it('saveUsers', () => {
+
+        const user = { x: 'test' }
+        const dispatch = jest.fn();
+        const url = `${AUTH_SERVER_URL}/auth/register`;
+        saveUsers(user, dispatch);
+
+        expect(mockAxios.post).toHaveBeenCalledTimes(1);
+        expect(mockAxios.post).toHaveBeenCalledWith(url, user);
+    });
+    it('authenticateUser', () => {
+
+        const user = { x: 'test' }
+        const dispatch = jest.fn();
+        const url = `${AUTH_SERVER_URL}/auth/login`;
+        authenticateUser(user, dispatch);
+
+        expect(mockAxios.post).toHaveBeenCalledTimes(1);
+        expect(mockAxios.post).toHaveBeenCalledWith(url, user);
+    });
+    it('submitPostRequest', async () => {
 
         const user = { x: 'test' }
         const dispatch = jest.fn();
@@ -21,9 +41,9 @@ describe('Authentication API', () => {
             tokenType: ''
         };
         mockAxios.post.mockImplementationOnce(() => Promise.resolve(response));
-        saveUsers(user, dispatch);
-
         const url = `${AUTH_SERVER_URL}/auth/register`;
+        submitPostRequest(url, user, dispatch);
+
         expect(mockAxios.post).toHaveBeenCalledTimes(1);
         expect(mockAxios.post).toHaveBeenCalledWith(url, user);
 
@@ -48,7 +68,7 @@ describe('Authentication API', () => {
             const user = { x: 'test' }
             const dispatch = jest.fn();
 
-            saveUsers(user, dispatch);
+            submitPostRequest('auth/register', user, dispatch);
             expect(consoleSpy).not.toBeCalled();
         });
         it('fetches error and console it', async () => {
@@ -60,7 +80,7 @@ describe('Authentication API', () => {
             const user = { x: 'test' }
             const dispatch = jest.fn();
 
-            saveUsers(user, dispatch);
+            submitPostRequest('auth/register', user, dispatch);
 
             await flushPromises();
             expect(consoleSpy).toBeCalledWith(message);

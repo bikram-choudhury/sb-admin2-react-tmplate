@@ -74,77 +74,31 @@ describe('Testing App', () => {
         });
     });
     describe('Admin - layout', () => {
-
+        let component;
+        afterEach(() => {
+            component.unmount();
+        });
         it('should render ', () => {
-            const component = mount(
-                <MemoryRouter initialEntries={['/']}>
-                    <App accessToken="IamToken" />
-                </MemoryRouter>
-            );
-            expect(component.find('Admin')).toHaveLength(1);
-            component.unmount();
+            component = shallow(<App accessToken="" />);
+            const routeEl = component.find('Route[path="/"]');
+            expect(routeEl.first().prop('render')).toBe(component.instance().renderAdminRoute);
         });
-        it('should redirect to "/sign-in" route', () => {
-            const component = mount(
-                <MemoryRouter initialEntries={['/']}>
-                    <App />
-                </MemoryRouter>
-            );
-            expect(location.pathname).toBe('/sign-in');
-            expect(component.find('Authentication')).toHaveLength(1);
-            component.unmount();
-        });
-
     });
     describe('Authentication - layout', () => {
-
-        describe('Route: sign-in', () => {
-
-            it('should render ', () => {
-                const component = mount(
-                    <MemoryRouter initialEntries={['/sign-in']}>
-                        <App accessToken="" />
-                    </MemoryRouter>
-                );
-                expect(component.find('Authentication')).toHaveLength(1);
-                component.unmount();
-            });
-            it('should redirect to "/" route', () => {
-                const component = mount(
-                    <MemoryRouter initialEntries={['/sign-in']}>
-                        <App accessToken="IamToken" />
-                    </MemoryRouter>
-                );
-                expect(location.pathname).toBe('/');
-                expect(component.find('Admin')).toHaveLength(1);
-                component.unmount();
-            });
-
+        let component;
+        afterEach(() => {
+            component.unmount();
         });
-        describe('Route: sign-up', () => {
-
-            it('should render ', () => {
-                const component = mount(
-                    <MemoryRouter initialEntries={['/sign-up']}>
-                        <App />
-                    </MemoryRouter>
-                );
-                expect(component.find('Authentication')).toHaveLength(1);
-                component.unmount();
-            });
-            it('should redirect to "/" route', () => {
-                const component = mount(
-                    <MemoryRouter initialEntries={['/sign-up']}>
-                        <App accessToken="IamToken" />
-                    </MemoryRouter>
-                );
-                expect(location.pathname).toBe('/');
-                expect(component.find('Admin')).toHaveLength(1);
-                component.unmount();
-            });
-
+        it('Route: sign-in', () => {
+            component = shallow(<App accessToken="" />);
+            const routeEl = component.find('Route[path="/sign-in"]');
+            expect(routeEl.first().prop('render')).toBe(component.instance().renderAuthRoutes);
         });
-
+        it('Route: sign-up', () => {
+            component = shallow(<App accessToken="" />);
+            const routeEl = component.find('Route[path="/sign-up"]');
+            expect(routeEl.first().prop('render')).toBe(component.instance().renderAuthRoutes);
+        });
     });
 
 })
