@@ -19,10 +19,16 @@ module.exports = {
   clearMocks: true,
 
   // Indicates whether the coverage information should be collected while executing the test
-  // collectCoverage: false,
+  collectCoverage: true,
 
   // An array of glob patterns indicating a set of files for which coverage information should be collected
-  collectCoverageFrom: [ 'src/**/*.{js,jsx,mjs}' ],
+  collectCoverageFrom: [
+    'src/**/*.{js,jsx,mjs}',
+    "!**/node_modules/**",
+    "!**/coverage/**",
+    "!**/serviceWorker.js",
+    "!**/index.js"
+  ],
 
   // The directory where Jest should output its coverage files
   coverageDirectory: 'coverage',
@@ -41,7 +47,14 @@ module.exports = {
   // ],
 
   // An object that configures minimum threshold enforcement for coverage results
-  // coverageThreshold: null,
+  coverageThreshold: {
+    "global": {  // global thresholds
+      "branches": 80,
+      "functions": 80,
+      "lines": 80,
+      "statements": 80
+    },
+  },
 
   // Make calling deprecated APIs throw helpful error messages
   // errorOnDeprecated: false,
