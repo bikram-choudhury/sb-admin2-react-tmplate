@@ -1,15 +1,20 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { Switch, Route } from "react-router-dom";
-import SignIn from "../../components/SignIn/SignIn";
-import SignUp from "../../components/SignUp/SignUp";
 
-export const Authentication = props => {
+const SignIn = React.lazy(() => import("../../components/SignIn/SignIn"));
+const SignUp = React.lazy(() => import("../../components/SignUp/SignUp"));
+
+const Authentication = props => {
 	return (
 		<div id="wrapper" className="bg-gradient-primary">
-			<Switch>
-				<Route path="/sign-in" component={SignIn} />
-				<Route path="/sign-up" component={SignUp} />
-			</Switch>
+			<Suspense fallback={<div>Loading...</div>}>
+				<Switch>
+					<Route path="/sign-in" component={SignIn} />
+					<Route path="/sign-up" component={SignUp} />
+				</Switch>
+			</Suspense>
 		</div>
 	);
 };
+
+export default Authentication;

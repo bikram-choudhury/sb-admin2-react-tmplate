@@ -8,9 +8,10 @@ https://stackoverflow.com/a/51586418
 */
 import React from "react";
 import { shallow } from "enzyme";
-import { Authentication } from "./Authentication";
-import SignIn from "../../components/SignIn/SignIn";
-import SignUp from "../../components/SignUp/SignUp";
+import Authentication from "./Authentication";
+
+const SignIn = React.lazy(() => import("../../components/SignIn/SignIn"));
+const SignUp = React.lazy(() => import("../../components/SignUp/SignUp"));
 
 describe("Authentication", () => {
 	let component;
@@ -20,14 +21,12 @@ describe("Authentication", () => {
 	it("should render", () => {
 		expect(component.find("#wrapper")).toHaveLength(1);
 	});
-
-	it('should render "SignIn"', () => {
-		const routeEl = component.find('Route[path="/sign-in"]');
-		expect(routeEl.first().prop("component")).toBe(SignIn);
+	it('should render "SignIn"', async () => {
+		const routeEl = component.find('Route[path="/sign-in"]');		
+		expect(JSON.stringify(routeEl.first().prop("component"))).toEqual(JSON.stringify(SignIn));
 	});
-
 	it('should render "SignUp"', () => {
 		const routeEl = component.find('Route[path="/sign-up"]');
-		expect(routeEl.first().prop("component")).toBe(SignUp);
+		expect(JSON.stringify(routeEl.first().prop("component"))).toBe(JSON.stringify(SignUp));
 	});
 });

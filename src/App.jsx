@@ -1,9 +1,11 @@
 import { createBrowserHistory } from "history";
 import PropTypes from "prop-types";
-import React, { Component } from "react";
+import React, { Component, Suspense } from "react";
 import { Redirect, Route, Router, Switch } from "react-router-dom";
-import { Admin } from "./layout/Admin/Admin";
-import { Authentication } from "./layout/Authentication/Authentication";
+
+// Lazy component
+const Admin = React.lazy(() => import('./layout/Admin/Admin'));
+const Authentication = React.lazy(() => import('./layout/Authentication/Authentication'));
 
 const browserHistory = createBrowserHistory();
 
@@ -33,11 +35,13 @@ export default class App extends Component {
 	render() {
 		return (
 			<Router history={browserHistory}>
-				<Switch>
-					<Route path="/sign-in" render={this.renderAuthRoutes} />
-					<Route path="/sign-up" render={this.renderAuthRoutes} />
-					<Route path="/" render={this.renderAdminRoute} />
-				</Switch>
+				<Suspense fallback={<div>Loading...</div>}>
+					<Switch>
+						<Route path="/sign-in" render={this.renderAuthRoutes} />
+						<Route path="/sign-up" render={this.renderAuthRoutes} />
+						<Route path="/" render={this.renderAdminRoute} />
+					</Switch>
+				</Suspense>
 			</Router>
 		);
 	}

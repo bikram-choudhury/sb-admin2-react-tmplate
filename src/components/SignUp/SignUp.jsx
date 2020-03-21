@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { saveUsers } from "../../services/authentication/authentication.api";
@@ -158,14 +159,14 @@ const SignUp = () => {
 								</form>
 								<hr />
 								<div className="text-center">
-									<a className="small" href="forgot-password.html">
+									<Link className="small" to={"/"}>
 										Forgot Password?
-									</a>
+									</Link>
 								</div>
 								<div className="text-center">
-									<a className="small" href="login.html">
+									<Link className="small" to={"/sign-in"}>
 										Already have an account? Login!
-									</a>
+									</Link>
 								</div>
 							</div>
 						</div>
