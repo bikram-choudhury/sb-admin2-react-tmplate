@@ -35,6 +35,7 @@
         "react/prop-types": [ 2 ],
         "react/no-array-index-key": [ 1 ],
         "class-methods-use-this": "error",
+        "prefer-arrow-callback": "error",
         "no-useless-constructor": "error",
         "no-unused-vars": "error",
         "no-undef": "error",

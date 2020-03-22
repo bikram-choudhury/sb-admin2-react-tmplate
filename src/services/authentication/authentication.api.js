@@ -30,3 +30,15 @@ export const authenticateUser = (user, dispatch) => {
 	const URL = `${AUTH_SERVER_URL}/auth/login`;
 	submitPostRequest(URL, user, dispatch);
 };
+
+export const resetPassword = (resetInfo) => {
+	const URL = `${AUTH_SERVER_URL}/auth/reset-password`;
+	return new Promise((resolve, reject) => {
+		Axios.post(URL, resetInfo)
+		.then(_ => {
+			resolve(true);
+		}).catch(error => {
+			reject(error);
+		})
+	});
+}

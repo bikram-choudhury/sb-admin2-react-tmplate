@@ -39,6 +39,7 @@ export default class App extends Component {
 					<Switch>
 						<Route path="/sign-in" render={this.renderAuthRoutes} />
 						<Route path="/sign-up" render={this.renderAuthRoutes} />
+						<Route path="/forgot-password" render={this.renderAuthRoutes} />
 						<Route path="/" render={this.renderAdminRoute} />
 					</Switch>
 				</Suspense>

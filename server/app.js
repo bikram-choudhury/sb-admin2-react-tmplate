@@ -33,23 +33,28 @@ server.post('/auth/register', (request, response) => {
             response.status(500).json({ message: 'No read acces for User DB' });
         } else {
             const users = JSON.parse(data.toString());
-            const isExist = users.find(user => user.username === userData.username || user.email === userData.email);
+            const isExist = users.find(
+                user => (
+                    user.username === userData.username ||
+                    user.email === userData.email
+                )
+            );
 
-            if (!!isExist) {
+            if (isExist) {
                 const message = 'username/email already exist';
                 response.status(400).json({ message });
             } else {
                 users.push({ id: (users.length + 1), ...userData });
 
-                fs.writeFile(userDbPath, JSON.stringify(users), (error, result) => {
-                    if (error) {
+                fs.writeFile(userDbPath, JSON.stringify(users), (writeError, result) => {
+                    if (writeError) {
                         response.status(500).json({ message: 'No write access to User DB' });
                     } else {
                         const accessToken = createToken(userData);
                         response.status(200).json({
-                            access_token: accessToken,
-                            refresh_token: '',
-                            token_type: 'Bearer'
+                            accessToken: accessToken,
+                            refreshToken: '',
+                            tokenType: 'Bearer'
                         });
                     }
                 });
@@ -65,7 +70,12 @@ server.post('/auth/login', (request, response) => {
             response.status(500).json({ message: 'No read acces for User DB' });
         } else {
             const users = JSON.parse(data.toString());
-            const isExist = users.find(user => user.username === userData.username && user.password === userData.password);
+            const isExist = users.find(
+                user => (
+                    user.username === userData.username &&
+                    user.password === userData.password
+                )
+            );
 
             if (!isExist) {
                 const message = 'Incorrect credentials';
@@ -73,13 +83,46 @@ server.post('/auth/login', (request, response) => {
             } else {
                 const accessToken = createToken(userData);
                 response.status(200).json({
-                    access_token: accessToken,
-                    refresh_token: '',
-                    token_type: 'Bearer'
+                    accessToken: accessToken,
+                    refreshToken: '',
+                    tokenType: 'Bearer'
                 });
             }
         }
     })
+});
+
+server.post('/auth/reset-password', (request, response) => {
+    const resetData = request.body;
+    fs.readFile(userDbPath, (error, data) => {
+        if (error) {
+            response.status(500).json({ message: 'No read acces for User DB' });
+        } else {
+            const users = JSON.parse(data.toString());
+            const isExist = users.find(
+                user => (
+                    user.username === resetData.email ||
+                    user.email === resetData.email
+                )
+            );
+            if (!isExist) {
+                const message = 'Incorrect credentials';
+                response.status(400).json({ message });
+            } else if (resetData.newPassword !== resetData.repeatPassword) {
+                const message = 'New & Current Password must be same';
+                response.status(400).json({ message });
+            } else {
+                isExist[ 'password' ] = resetData.newPassword;
+                fs.writeFile(userDbPath, JSON.stringify(users), writeError => {
+                    if (writeError) {
+                        response.status(500).json({ message: 'No write access to User DB' });
+                    } else {
+                        response.status(200).send("Password reset sucessfully!");
+                    }
+                })
+            }
+        }
+    });
 });
 
 server.use(/^(?!\/auth).*$/, (request, response, next) => {
@@ -87,8 +130,8 @@ server.use(/^(?!\/auth).*$/, (request, response, next) => {
 
     if (Authorization) {
         const tokenArr = Authorization.split(' ');
-        if (tokenArr[0] === 'Bearer') {
-            const accessToken = tokenArr[1];
+        if (tokenArr[ 0 ] === 'Bearer') {
+            const accessToken = tokenArr[ 1 ];
             const decodedToken = verifyToken(accessToken);
 
             if (decodedToken instanceof Error) {

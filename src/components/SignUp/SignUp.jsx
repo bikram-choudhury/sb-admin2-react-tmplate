@@ -159,7 +159,7 @@ const SignUp = () => {
 								</form>
 								<hr />
 								<div className="text-center">
-									<Link className="small" to={"/"}>
+									<Link className="small" to={"/forgot-password"}>
 										Forgot Password?
 									</Link>
 								</div>

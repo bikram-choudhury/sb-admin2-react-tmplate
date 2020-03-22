@@ -64,7 +64,7 @@ const SignIn = () => {
 													errors.password &&
 													errors.password.type === "required" ? (
 														<small
-															data-error="email"
+															data-error="password"
 															className="text-danger"
 														>
 															Password is required
@@ -105,7 +105,7 @@ const SignIn = () => {
 										</form>
 										<hr />
 										<div className="text-center">
-											<Link className="small" to={"/"}>
+											<Link className="small" to={"/forgot-password"}>
 												Forgot Password?
 											</Link>
 										</div>

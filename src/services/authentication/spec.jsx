@@ -4,7 +4,8 @@ import { AUTH_SERVER_URL } from "./../../../settings";
 import {
 	authenticateUser,
 	submitPostRequest,
-	saveUsers
+	saveUsers,
+	resetPassword
 } from "./authentication.api";
 import { flushPromises } from "../../../jest.helper";
 
@@ -26,6 +27,25 @@ describe("Authentication API", () => {
 
 		expect(mockAxios.post).toHaveBeenCalledTimes(1);
 		expect(mockAxios.post).toHaveBeenCalledWith(url, user);
+	});
+	it('resetPassword', async () => {
+		const url = `${AUTH_SERVER_URL}/auth/reset-password`;
+		const result = resetPassword({});
+
+		expect(mockAxios.post).toHaveBeenCalledTimes(1);
+		expect(mockAxios.post).toHaveBeenCalledWith(url, {});
+		
+		await flushPromises();
+
+		expect(result).resolves.toBeTruthy();
+	});
+	it('resetPassword should throw error', () => {
+		const expectedError = { message: "Reset Error" };
+		mockAxios.post.mockImplementationOnce(() => Promise.reject(expectedError));
+
+		resetPassword({}).catch(error => {
+			expect(error.message).toEqual(expectedError.message);
+		});
 	});
 	it("submitPostRequest", async () => {
 		const user = { x: "test" };

@@ -12,6 +12,7 @@ import Authentication from "./Authentication";
 
 const SignIn = React.lazy(() => import("../../components/SignIn/SignIn"));
 const SignUp = React.lazy(() => import("../../components/SignUp/SignUp"));
+const ForgotPassword = React.lazy(() => import("../../components/ForgotPassword/ForgotPassword"));
 
 describe("Authentication", () => {
 	let component;
@@ -28,5 +29,9 @@ describe("Authentication", () => {
 	it('should render "SignUp"', () => {
 		const routeEl = component.find('Route[path="/sign-up"]');
 		expect(JSON.stringify(routeEl.first().prop("component"))).toBe(JSON.stringify(SignUp));
+	});
+	it('should render "ForgotPassword"', () => {
+		const routeEl = component.find('Route[path="/forgot-password"]');
+		expect(JSON.stringify(routeEl.first().prop("component"))).toBe(JSON.stringify(ForgotPassword));
 	});
 });
