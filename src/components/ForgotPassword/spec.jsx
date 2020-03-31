@@ -12,7 +12,7 @@ describe("Authentication", () => {
 	beforeEach(() => {
 		window.alert = jest.fn();
 		setState = jest.fn();
-		useStateSpy = jest.spyOn(React, 'useState')
+		useStateSpy = jest.spyOn(React, 'useState');
 	});
 	afterEach(() => {
 		jest.clearAllMocks();

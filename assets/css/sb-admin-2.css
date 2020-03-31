@@ -9896,6 +9896,9 @@ a:focus {
 .dropdown.no-arrow .dropdown-toggle::after {
   display: none;
 }
+.dropdown .dropdown-toggle {
+  cursor: pointer;
+}
 
 .sidebar .nav-item.dropdown .dropdown-toggle::after,
 .topbar .nav-item.dropdown .dropdown-toggle::after {
@@ -9917,6 +9920,7 @@ a:focus {
 .sidebar .nav-item .nav-link,
 .topbar .nav-item .nav-link {
   position: relative;
+  cursor: pointer;
 }
 
 .sidebar .nav-item .nav-link .badge-counter,
@@ -9968,6 +9972,7 @@ a:focus {
 }
 
 .topbar .nav-item .nav-link {
+  cursor: pointer;
   height: 4.375rem;
   display: flex;
   align-items: center;
@@ -10081,6 +10086,7 @@ a:focus {
 
 .sidebar .nav-item {
   position: relative;
+  cursor: pointer;
 }
 
 .sidebar .nav-item:last-child {
