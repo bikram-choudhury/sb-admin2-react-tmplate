@@ -3,6 +3,7 @@ import React from 'react';
 const Dashboard = React.lazy(() => import("./components/Dashboard/Dashboard"));
 const Buttons = React.lazy(() => import("./components/Buttons/Buttons"));
 const Cards = React.lazy(() => import("./components/Cards/Cards"));
+const UtilitiesColor = React.lazy(() => import("./components/UtilitiesColor/UtilitiesColor"));
 
 const RouteConfig = [{
     heading: '',
@@ -38,7 +39,7 @@ const RouteConfig = [{
         subRoutes: [{
             path: '/colors',
             name: 'Colors',
-            component: Dashboard
+            component: UtilitiesColor
         }, {
             path: '/borders',
             name: 'Borders',
