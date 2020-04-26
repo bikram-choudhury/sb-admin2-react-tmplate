@@ -1,0 +1,1 @@
+export const BorderUtilitiesTypes = [ 'primary', 'success', 'info', 'warning', 'danger' ]

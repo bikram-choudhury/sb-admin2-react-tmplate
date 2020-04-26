@@ -4,6 +4,7 @@ const Dashboard = React.lazy(() => import("./components/Dashboard/Dashboard"));
 const Buttons = React.lazy(() => import("./components/Buttons/Buttons"));
 const Cards = React.lazy(() => import("./components/Cards/Cards"));
 const UtilitiesColor = React.lazy(() => import("./components/UtilitiesColor/UtilitiesColor"));
+const UtilitiesBorder = React.lazy(() => import("./components/UtilitiesBorder/UtilitiesBorder"));
 
 const RouteConfig = [{
     heading: '',
@@ -43,7 +44,7 @@ const RouteConfig = [{
         }, {
             path: '/borders',
             name: 'Borders',
-            component: Dashboard
+            component: UtilitiesBorder
         }, {
             path: '/animations',
             name: 'Animations',
