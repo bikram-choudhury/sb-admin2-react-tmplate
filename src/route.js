@@ -1,6 +1,7 @@
 import React from 'react';
 
 const Dashboard = React.lazy(() => import("./components/Dashboard/Dashboard"));
+const Buttons = React.lazy(() => import("./components/Buttons/Buttons"));
 
 const RouteConfig = [{
     heading: '',
@@ -22,7 +23,7 @@ const RouteConfig = [{
         subRoutes: [{
             path: '/buttons',
             name: 'Buttons',
-            component: Dashboard
+            component: Buttons
         }, {
             path: '/cards',
             name: 'Cards',

@@ -14,6 +14,7 @@ export function createAdminRoutes(routerConfigList) {
 				route.subRoutes.forEach(subRoute => {
 					routeElements.push(
 						<Route
+							exact
 							key={subRoute.name}
 							path={route.path + subRoute.path}
 							component={subRoute.component}
@@ -22,7 +23,7 @@ export function createAdminRoutes(routerConfigList) {
 				});
 			} else {
 				routeElements.push(
-					<Route key={route.name} path={route.path} component={route.component} />
+					<Route exact key={route.name} path={route.path} component={route.component} />
 				);
 			}
 		});
