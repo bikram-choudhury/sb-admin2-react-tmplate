@@ -9,6 +9,7 @@ const UtilitiesAnimation = React.lazy(
     () => import("./components/UtilitiesAnimation/UtilitiesAnimation")
 );
 const UtilitiesOthers = React.lazy(() => import("./components/UtilitiesOthers/UtilitiesOthers"));
+const NotFound = React.lazy(() => import("./components/NotFound/NotFound"));
 
 const RouteConfig = [{
     heading: '',
@@ -84,7 +85,7 @@ const RouteConfig = [{
         }, {
             path: '/404',
             name: '404 Page',
-            component: Dashboard
+            component: NotFound
         }, {
             path: '/blank',
             name: 'Blank Page',
