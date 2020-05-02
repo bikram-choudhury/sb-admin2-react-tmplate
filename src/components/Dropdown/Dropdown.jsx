@@ -4,6 +4,7 @@ import React, { Fragment, useState, createRef, useEffect, useCallback } from 're
 const Dropdown = props => {
     const {
         type,
+        noArrow,
         className,
         items,
         name,
@@ -54,7 +55,10 @@ const Dropdown = props => {
     if (type !== 'link' && type !== 'button') return null;
 
     return (
-        <div className="dropdown" ref={itemRef => { dropdownRef = itemRef }}>
+        <div
+            className={`dropdown ${noArrow ? 'no-arrow' : ''}`}
+            ref={itemRef => { dropdownRef = itemRef }}
+        >
             {
                 type === 'link' ? (
                     <span
@@ -110,6 +114,7 @@ const Dropdown = props => {
 Dropdown.propTypes = {
     type: PropTypes.string,
     className: PropTypes.string,
+    noArrow: PropTypes.bool,
     items: PropTypes.arrayOf(
         PropTypes.shape({
             id: PropTypes.oneOfType([

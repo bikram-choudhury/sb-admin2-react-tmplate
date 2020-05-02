@@ -20,6 +20,7 @@ describe('Dropdown', () => {
                 <Dropdown
                     items={DropdownData}
                     type="link"
+                    noArrow={false}
                     className=""
                     name="Dropdown"
                     animatedClassName=""
@@ -36,6 +37,7 @@ describe('Dropdown', () => {
                 <Dropdown
                     items={DropdownData}
                     type="button"
+                    noArrow={false}
                     className=""
                     name="Dropdown"
                     animatedClassName=""
@@ -44,6 +46,60 @@ describe('Dropdown', () => {
             );
             expect(component.find('span.dropdown-toggle').exists()).toBeFalsy();
             expect(component.find('button.dropdown-toggle').exists()).toBeTruthy();
+        });
+        it('type: text', () => {
+            const selectedSpy = jest.fn();
+
+            const component = shallow(
+                <Dropdown
+                    items={DropdownData}
+                    type="text"
+                    noArrow={false}
+                    className=""
+                    name="Dropdown"
+                    animatedClassName=""
+                    selected={selectedSpy}
+                />
+            );
+
+            expect(component.isEmptyRender).toBeTruthy();
+        });
+    });
+    describe('Dropdown arrow mark visibility', () => {
+        it('no arrow', () => {
+            const selectedSpy = jest.fn();
+            const component = shallow(
+                <Dropdown
+                    items={DropdownData}
+                    type="link"
+                    noArrow={false}
+                    className=""
+                    name="Dropdown"
+                    animatedClassName=""
+                    selected={selectedSpy}
+                />
+            );
+            expect(component.find('span.dropdown-toggle').exists()).toBeTruthy();
+            expect(component.find('button.dropdown-toggle').exists()).toBeFalsy();
+            expect(component.find('.no-arrow').exists()).toBeFalsy();
+        });
+        it('with arrow mark', () => {
+            const selectedSpy = jest.fn();
+
+            const component = shallow(
+                <Dropdown
+                    items={DropdownData}
+                    type="button"
+                    noArrow={true}
+                    className=""
+                    name="Dropdown"
+                    animatedClassName=""
+                    selected={selectedSpy}
+                />
+            );
+            expect(component.find('span.dropdown-toggle').exists()).toBeFalsy();
+            expect(component.find('button.dropdown-toggle').exists()).toBeTruthy();
+            expect(component.find('.no-arrow').exists()).toBeTruthy();
         });
         it('type: text', () => {
             const selectedSpy = jest.fn();
@@ -69,6 +125,7 @@ describe('Dropdown', () => {
             <Dropdown
                 items={DropdownData}
                 type="link"
+                noArrow={false}
                 className=""
                 name="Dropdown"
                 animatedClassName=""
@@ -94,6 +151,7 @@ describe('Dropdown', () => {
                 <Dropdown
                     items={menu}
                     type="link"
+                    noArrow={false}
                     className=""
                     name="Dropdown"
                     animatedClassName=""
@@ -113,6 +171,7 @@ describe('Dropdown', () => {
                 <Dropdown
                     items={menu}
                     type="link"
+                    noArrow={false}
                     className=""
                     name="Dropdown"
                     animatedClassName=""
