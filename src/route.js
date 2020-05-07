@@ -11,6 +11,7 @@ const UtilitiesAnimation = React.lazy(
 const UtilitiesOthers = React.lazy(() => import("./components/UtilitiesOthers/UtilitiesOthers"));
 const NotFound = React.lazy(() => import("./components/NotFound/NotFound"));
 const BlankDocument = React.lazy(() => import("./components/BlankDocument/BlankDocument"));
+const Tables = React.lazy(() => import("./components/Tables/Tables"));
 
 const RouteConfig = [{
     heading: '',
@@ -100,7 +101,7 @@ const RouteConfig = [{
     }, {
         path: '/tables',
         name: 'Tables',
-        component: Dashboard,
+        component: Tables,
         icon: 'fa-table'
     }]
 }]
