@@ -84,7 +84,9 @@ const Cards = _ => {
                     CardWithContent.map(card => {
                         return (
                             <div className="col-lg-6" key={card.heading}>
-                                <Card {...card} />
+                                <Card {...card}>
+                                    <div dangerouslySetInnerHTML={{ __html: card.content }}></div>
+                                </Card>
                             </div>
                         )
                     })

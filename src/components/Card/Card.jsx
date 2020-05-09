@@ -6,7 +6,7 @@ const Card = props => {
         heading,
         headerClass,
         parentClass,
-        content,
+        children,
         type,
         toggle,
         dropdown
@@ -64,10 +64,7 @@ const Card = props => {
             </div>
             <div className={
                 `card-body ${toggle ? (`collapse ${toggleStatus ? 'show' : ''}`) : ''}`
-            }
-                dangerouslySetInnerHTML={
-                    { __html: content }
-                }></div>
+            }>{children}</div>
         </div>
     );
 }
@@ -76,7 +73,10 @@ Card.propTypes = {
     heading: PropTypes.string,
     headerClass: PropTypes.string,
     parentClass: PropTypes.string,
-    content: PropTypes.string,
+    children: PropTypes.oneOfType([
+        PropTypes.node,
+        PropTypes.arrayOf(PropTypes.node)
+    ]),
     type: PropTypes.string,
     toggle: PropTypes.bool,
     dropdown: PropTypes.bool

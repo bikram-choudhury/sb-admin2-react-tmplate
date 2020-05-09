@@ -10,14 +10,19 @@ describe('Card', () => {
             headerClass: '',
             parentClass: '',
             type: 'default',
-            content: `This card uses Bootstrap&rsquo;s default styling
-    with no utility classes added. Global styles are the
-    only things modifying the look and feel of this
-    default card example.`,
             toggle: false,
             dropdown: false
         }
-        const component = shallow(<Card {...props} />);
+        const component = shallow(
+            <Card {...props}>
+                <div>
+                    This card uses Bootstrap&rsquo;s default styling
+                    with no utility classes added. Global styles are the
+                    only things modifying the look and feel of this
+                    default card example.
+            </div>
+            </Card>
+        );
         expect(component.find('.card').exists()).toBeTruthy();
         expect(component.find('.card-header').prop('data-toggle')).toBeFalsy();
         expect(component.find('h6')).toHaveClassName('text-default');
@@ -32,14 +37,19 @@ describe('Card', () => {
             headerClass: '',
             parentClass: '',
             type: 'default',
-            content: `This card uses Bootstrap&rsquo;s default styling
-    with no utility classes added. Global styles are the
-    only things modifying the look and feel of this
-    default card example.`,
             toggle: true,
             dropdown: false
         }
-        const component = shallow(<Card {...props} />);
+        const component = shallow(
+            <Card {...props}>
+                <div>
+                    This card uses Bootstrap&rsquo;s default styling
+                    with no utility classes added. Global styles are the
+                    only things modifying the look and feel of this
+                    default card example.
+                </div>
+            </Card>
+        );
         expect(component.find('.card').exists()).toBeTruthy();
         expect(component.find('.card-header')).not.toHaveClassName('collapsed');
         expect(component.find('.card-header').prop('data-toggle')).toEqual('collapse');
@@ -58,14 +68,19 @@ describe('Card', () => {
             headerClass: '',
             parentClass: '',
             type: 'default',
-            content: `This card uses Bootstrap&rsquo;s default styling
-    with no utility classes added. Global styles are the
-    only things modifying the look and feel of this
-    default card example.`,
             toggle: false,
             dropdown: true
         }
-        const component = shallow(<Card {...props} />);
+        const component = shallow(
+            <Card {...props}>
+                <div>
+                    This card uses Bootstrap&rsquo;s default styling
+                    with no utility classes added. Global styles are the
+                    only things modifying the look and feel of this
+                    default card example.
+                </div>
+            </Card>
+        );
         expect(component.find('.dropdown').exists()).toBeTruthy();
         expect(component.find('.dropdown-toggle').prop('aria-expanded')).toBeFalsy();
         expect(component.find('.dropdown.show').exists()).toBeFalsy();
@@ -77,17 +92,13 @@ describe('Card', () => {
         expect(component.find('.dropdown-toggle').prop('aria-expanded')).toBeTruthy();
         expect(component.find('.dropdown-menu.show').exists()).toBeTruthy();
     });
-    
+
     it('should call the toggle state callback', () => {
         const props = {
             heading: "Default Card Example",
             headerClass: '',
             parentClass: '',
             type: 'default',
-            content: `This card uses Bootstrap&rsquo;s default styling
-    with no utility classes added. Global styles are the
-    only things modifying the look and feel of this
-    default card example.`,
             toggle: false,
             dropdown: false
         }
@@ -95,7 +106,16 @@ describe('Card', () => {
         const setState = jest.fn();
         useStateSpy.mockImplementation(() => [ true, setState ]);
 
-        const component = shallow(<Card {...props} />);
+        const component = shallow(
+            <Card {...props}>
+                <div>
+                    This card uses Bootstrap&rsquo;s default styling
+                    with no utility classes added. Global styles are the
+                    only things modifying the look and feel of this
+                    default card example.
+                </div>
+            </Card>
+        );
         component.find('.card-header').simulate('click');
 
         expect(setState).not.toBeCalled();

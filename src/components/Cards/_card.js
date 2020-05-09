@@ -26,7 +26,7 @@ export const CardWithContent = [{
     headerClass: '',
     parentClass: '',
     type: 'default',
-    content: `This card uses Bootstrap&rsquo;s default styling
+    content: `This card uses Bootstrap's default styling
     with no utility classes added. Global styles are the
     only things modifying the look and feel of this
     default card example.`,
@@ -60,7 +60,7 @@ export const CardWithContent = [{
     parentClass: 'shadow',
     type: 'primary',
     content: `This is a collapsable card example using
-    Bootstrap&rsquo;s built in collapse functionality.
+    Bootstrap's built in collapse functionality.
     <strong>Click on the card header</strong>
     to see the card body collapse and expand!`,
     toggle: true,
