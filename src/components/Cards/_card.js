@@ -15,7 +15,7 @@ export const CardBox = [{
     icon: 'fa-clipboard-list',
     progress: 50
 }, {
-    type: 'primary',
+    type: 'warning',
     heading: 'Earnings (Monthly)',
     title: '$40,000',
     icon: 'fa-calendar'

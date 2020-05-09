@@ -11,6 +11,7 @@ const UtilitiesAnimation = React.lazy(
 const UtilitiesOthers = React.lazy(() => import("./components/UtilitiesOthers/UtilitiesOthers"));
 const NotFound = React.lazy(() => import("./components/NotFound/NotFound"));
 const BlankDocument = React.lazy(() => import("./components/BlankDocument/BlankDocument"));
+const Charts = React.lazy(() => import("./components/Charts/Charts"));
 const Tables = React.lazy(() => import("./components/Tables/Tables"));
 
 const RouteConfig = [{
@@ -96,7 +97,7 @@ const RouteConfig = [{
     }, {
         path: '/charts',
         name: 'Charts',
-        component: Dashboard,
+        component: Charts,
         icon: 'fa-chart-area'
     }, {
         path: '/tables',
