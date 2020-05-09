@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable camelcase */
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
@@ -7,6 +9,7 @@ const path = require('path');
 
 const BUILD_DIR = path.join(__dirname, "./build");
 const APP_DIR = path.join(__dirname, "./src");
+const IMG_DIR = path.join(__dirname, "./assets/img");
 
 module.exports = (env) => {
     console.log("WEBPACK ENV: ", env);
@@ -19,7 +22,7 @@ module.exports = (env) => {
 
     // clean 'build' folder everytime before a new build
     const cleanPlugin = new CleanWebpackPlugin({
-        cleanOnceBeforeBuildPatterns: ['**/*', '!build/*', '!static-files*'],
+        cleanOnceBeforeBuildPatterns: [ '**/*', '!build/*', '!static-files*' ],
         root: __dirname,
         verbose: true,
         dry: false
@@ -49,7 +52,7 @@ module.exports = (env) => {
 
     // Building webpack config
     const config = {};
-    config.entry = ['babel-polyfill', './src/index.js']; 
+    config.entry = [ 'babel-polyfill', './src/index.js' ]; 
 
     config.output = {
         path: BUILD_DIR,
@@ -69,21 +72,21 @@ module.exports = (env) => {
         runtimeChunk: {
             name: 'manifest'
         },
-        minimizer: [uglifyPlugin]
+        minimizer: [ uglifyPlugin ]
     };
 
-    config.plugins = [cleanPlugin, HTMLPlugin];
+    config.plugins = [ cleanPlugin, HTMLPlugin ];
 
     config.module = {
         rules: [
             {
                 test: /\.(png|jpe?g|gif|svg|ico|ttf|woff|woff2|eot)$/i,
                 loader: 'file-loader',
-                include: APP_DIR,
+                include: IMG_DIR,
                 exclude: /node_modules/
             }, {
                 test: /\.css$/i,
-                use: ['style-loader', 'css-loader'],
+                use: [ 'style-loader', 'css-loader' ],
                 include: APP_DIR
             }, {
                 test: /\.(jsx|js)$/i,
@@ -95,7 +98,7 @@ module.exports = (env) => {
     };
 
     config.resolve = {
-        extensions: ['.js', '.jsx']
+        extensions: [ '.js', '.jsx' ]
     };
 
     if (isProduction) {

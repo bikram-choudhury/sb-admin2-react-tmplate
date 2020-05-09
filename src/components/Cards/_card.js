@@ -1,4 +1,4 @@
-export const CardBox = [{
+export const CardBoxData = [{
     type: 'primary',
     heading: 'Earnings (Monthly)',
     title: '$40,000',

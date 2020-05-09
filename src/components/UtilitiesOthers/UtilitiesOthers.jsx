@@ -49,14 +49,13 @@ const UtilitiesOthers = () => {
                                 <ProgressBar
                                     title="Normal Progress Bar"
                                     percentage={75}
-                                    type=""
                                 />
                             </div>
                             <div className="mb-2">
                                 <ProgressBar
                                     title="Small Progress Bar"
                                     percentage={75}
-                                    type="progress-sm"
+                                    size="progress-sm"
                                 />
                             </div>
                             Use the <code>.progress-sm</code> &nbsp;
