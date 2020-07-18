@@ -1,11 +1,10 @@
 import React from "react";
 import { Link } from 'react-router-dom';
 import { useForm } from "react-hook-form";
-import { authenticateUser } from "../../services/authentication/authentication.api";
 import { useAuthContext } from "../../contexts/AuthContext";
 
 export const signInFormOnSubmit = (authDispatch, formData) => {
-	authenticateUser(formData, authDispatch);
+	// authenticateUser(formData, authDispatch);
 };
 
 const SignIn = () => {

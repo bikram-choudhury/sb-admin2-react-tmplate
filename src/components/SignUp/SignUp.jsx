@@ -2,12 +2,11 @@ import React from "react";
 import { Link } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import { useAuthContext } from "../../contexts/AuthContext";
-import { saveUsers } from "../../services/authentication/authentication.api";
 
 export const signUpFormOnSubmit = (authDispatch, formData) => {
 	const dataToSave = { ...formData, username: formData.email };
 	delete dataToSave.confirmPassword;
-	saveUsers(dataToSave, authDispatch);
+	// saveUsers(dataToSave, authDispatch);
 };
 export const validatePassword = (password, confirmPassword) => {
 	return password === confirmPassword;

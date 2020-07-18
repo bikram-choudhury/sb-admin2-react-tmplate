@@ -1,16 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { resetPassword } from '../../services/authentication/authentication.api';
 
 export const passwordResetOnSubmit = (successCallback, formData) => {
-    resetPassword(formData)
-        .then(_ => {
-            alert("Password reset successfully");
-            successCallback();
-        }).catch(error => {
-            alert(error.message);
-        })
+    /* resetPassword(formData)
+        .then(_ => successCallback()) */
 }
 
 export const validatePassword = (newPassword, confirmPassword) => {
@@ -19,7 +13,7 @@ export const validatePassword = (newPassword, confirmPassword) => {
 
 const ForgotPassword = props => {
     const [ resetStatus, updateResetStatus ] = React.useState(false);
-    
+
     const { register, handleSubmit, errors, watch } = useForm();
     const watchPassword = watch("newPassword");
     const className = "form-control form-control-user";
@@ -147,8 +141,8 @@ const ForgotPassword = props => {
                                                                     <small
                                                                         data-error="repeatPassword"
                                                                         className="text-danger"
-                                                                    >{"New & confirm password "+
-                                                                    "should be same"}</small>
+                                                                    >{"New & confirm password " +
+                                                                        "should be same"}</small>
                                                                 ) : null
                                                             }
                                                         </div>
