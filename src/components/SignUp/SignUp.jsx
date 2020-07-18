@@ -1,19 +1,18 @@
 import React from "react";
 import { Link } from 'react-router-dom';
 import { useForm } from "react-hook-form";
-import { useAuthContext } from "../../contexts/AuthContext";
+import { createUserAndLogin } from "../../services/authentication";
 
-export const signUpFormOnSubmit = (authDispatch, formData) => {
+export const signUpFormOnSubmit = (formData) => {
 	const dataToSave = { ...formData, username: formData.email };
 	delete dataToSave.confirmPassword;
-	// saveUsers(dataToSave, authDispatch);
+	createUserAndLogin(dataToSave);
 };
 export const validatePassword = (password, confirmPassword) => {
 	return password === confirmPassword;
 };
 
 const SignUp = () => {
-	const { authDispatch } = useAuthContext();
 	const { register, handleSubmit, errors, watch } = useForm();
 	const watchPassword = watch("password");
 
@@ -31,9 +30,7 @@ const SignUp = () => {
 								</div>
 								<form
 									className="user sign-up-form"
-									onSubmit={handleSubmit(
-										signUpFormOnSubmit.bind(null, authDispatch)
-									)}
+									onSubmit={handleSubmit(signUpFormOnSubmit)}
 								>
 									<div className="form-group row">
 										<div className="col-sm-6 mb-3 mb-sm-0">
@@ -46,12 +43,12 @@ const SignUp = () => {
 												ref={register({ required: true })}
 											/>
 											{errors &&
-											errors.firstName &&
-											errors.firstName.type === "required" ? (
-												<small data-error="firstname" className="text-danger">
-													First Name is required
-												</small>
-											) : null}
+												errors.firstName &&
+												errors.firstName.type === "required" ? (
+													<small data-error="firstname" className="text-danger">
+														First Name is required
+													</small>
+												) : null}
 										</div>
 										<div className="col-sm-6">
 											<input
@@ -63,12 +60,12 @@ const SignUp = () => {
 												ref={register({ required: true })}
 											/>
 											{errors &&
-											errors.lastName &&
-											errors.lastName.type === "required" ? (
-												<small data-error="lastname" className="text-danger">
-													First Name is required
-												</small>
-											) : null}
+												errors.lastName &&
+												errors.lastName.type === "required" ? (
+													<small data-error="lastname" className="text-danger">
+														First Name is required
+													</small>
+												) : null}
 										</div>
 									</div>
 									<div className="form-group">
@@ -81,12 +78,12 @@ const SignUp = () => {
 											ref={register({ required: true })}
 										/>
 										{errors &&
-										errors.email &&
-										errors.email.type === "required" ? (
-											<small data-error="email" className="text-danger">
-												First Name is required
-											</small>
-										) : null}
+											errors.email &&
+											errors.email.type === "required" ? (
+												<small data-error="email" className="text-danger">
+													First Name is required
+												</small>
+											) : null}
 									</div>
 									<div className="form-group row">
 										<div className="col-sm-6 mb-3 mb-sm-0">
@@ -99,12 +96,12 @@ const SignUp = () => {
 												ref={register({ required: true })}
 											/>
 											{errors &&
-											errors.password &&
-											errors.password.type === "required" ? (
-												<small data-error="password" className="text-danger">
-													Password is required
-												</small>
-											) : null}
+												errors.password &&
+												errors.password.type === "required" ? (
+													<small data-error="password" className="text-danger">
+														Password is required
+													</small>
+												) : null}
 										</div>
 										<div className="col-sm-6">
 											<input
@@ -119,25 +116,25 @@ const SignUp = () => {
 												})}
 											/>
 											{errors &&
-											errors.confirmPassword &&
-											errors.confirmPassword.type === "required" ? (
-												<small
-													data-error="repeatpassword"
-													className="text-danger"
-												>
-													Repeat Password is required
-												</small>
-											) : null}
+												errors.confirmPassword &&
+												errors.confirmPassword.type === "required" ? (
+													<small
+														data-error="repeatpassword"
+														className="text-danger"
+													>
+														Repeat Password is required
+													</small>
+												) : null}
 											{errors &&
-											errors.confirmPassword &&
-											errors.confirmPassword.type === "validate" ? (
-												<small
-													data-error="repeatpassword"
-													className="text-danger"
-												>
-													Repeat Password is not same as Password
-												</small>
-											) : null}
+												errors.confirmPassword &&
+												errors.confirmPassword.type === "validate" ? (
+													<small
+														data-error="repeatpassword"
+														className="text-danger"
+													>
+														Repeat Password is not same as Password
+													</small>
+												) : null}
 										</div>
 									</div>
 									<button

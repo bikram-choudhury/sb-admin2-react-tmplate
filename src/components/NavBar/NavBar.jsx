@@ -1,7 +1,15 @@
 import React, { useState } from 'react';
+import { useAuthContext } from './../../contexts/AuthContext';
+import { auth } from './../../firebase';
 
 const NavBar = () => {
     const [ toggleDropdown, updateToggleDropdown ] = useState(false);
+    const { user } = useAuthContext();
+    const logout = () => {
+        if (user) {
+            auth.signOut();
+        }
+    }
     const userDropdownClass = `dropdown-menu dropdown-menu-right shadow animated--grow-in`;
     return (
         <nav
@@ -289,15 +297,10 @@ const NavBar = () => {
                             Activity Log
                         </a>
                         <div className="dropdown-divider"></div>
-                        <a
-                            className="dropdown-item"
-                            href="x.html"
-                            data-toggle="modal"
-                            data-target="#logoutModal"
-                        >
+                        <span className="dropdown-item" onClick={logout}>
                             <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                             Logout
-                        </a>
+                        </span>
                     </div>
                 </li>
             </ul>

@@ -1,6 +1,6 @@
 import { SET_AUTH } from "../../action.constants";
 
-export const setAuthToken = auth => ({
+export const setAuthInfo = user => ({
 	type: SET_AUTH,
-	payload: { ...auth }
+	payload: { ...user }
 });

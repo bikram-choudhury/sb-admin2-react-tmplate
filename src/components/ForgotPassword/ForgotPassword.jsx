@@ -1,21 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { resetPassword } from '../../services/authentication';
 
 export const passwordResetOnSubmit = (successCallback, formData) => {
-    /* resetPassword(formData)
-        .then(_ => successCallback()) */
-}
-
-export const validatePassword = (newPassword, confirmPassword) => {
-    return newPassword === confirmPassword;
+    resetPassword(formData.email).then(_ => successCallback(true));
 }
 
 const ForgotPassword = props => {
     const [ resetStatus, updateResetStatus ] = React.useState(false);
 
-    const { register, handleSubmit, errors, watch } = useForm();
-    const watchPassword = watch("newPassword");
+    const { register, handleSubmit, errors } = useForm();
     const className = "form-control form-control-user";
 
     return (
@@ -47,7 +42,8 @@ const ForgotPassword = props => {
                                             resetStatus ? (
                                                 <div className="text-center mt-5 reset-success">
                                                     <h6 className="mb-4 text-success">
-                                                        Password update has been done successfully.
+                                                        Password reset email has been send 
+                                                        successfully.
                                                     </h6>
                                                     <Link to={"/sign-in"} className={
                                                         "btn btn-primary btn-user btn-block"
@@ -83,72 +79,9 @@ const ForgotPassword = props => {
                                                                 ) : null
                                                             }
                                                         </div>
-                                                        <div className="form-group">
-                                                            <input
-                                                                type="password"
-                                                                name="newPassword"
-                                                                className={className}
-                                                                aria-describedby="newPasswordHelp"
-                                                                placeholder={
-                                                                    "Enter your new password..."
-                                                                }
-                                                                ref={register({ required: true })}
-                                                            />
-                                                            {errors &&
-                                                                errors.newPassword &&
-                                                                errors.newPassword
-                                                                    .type === 'required' ? (
-                                                                    <small
-                                                                        data-error="newPassword"
-                                                                        className="text-danger"
-                                                                    >
-                                                                        New password is required
-                                                                    </small>
-                                                                ) : null
-                                                            }
-                                                        </div>
-                                                        <div className="form-group">
-                                                            <input
-                                                                type="password"
-                                                                name="repeatPassword"
-                                                                className={className}
-                                                                placeholder={
-                                                                    "Confirm your new password..."
-                                                                }
-                                                                ref={register({
-                                                                    required: true,
-                                                                    validate: validatePassword(
-                                                                        watchPassword
-                                                                    )
-                                                                })}
-                                                            />
-                                                            {errors &&
-                                                                errors.repeatPassword &&
-                                                                errors.repeatPassword
-                                                                    .type === 'required' ? (
-                                                                    <small
-                                                                        data-error="repeatPassword"
-                                                                        className="text-danger"
-                                                                    >
-                                                                        Confirm password is required
-                                                                    </small>
-                                                                ) : null
-                                                            }
-                                                            {errors &&
-                                                                errors.repeatPassword &&
-                                                                errors.repeatPassword
-                                                                    .type === 'validate' ? (
-                                                                    <small
-                                                                        data-error="repeatPassword"
-                                                                        className="text-danger"
-                                                                    >{"New & confirm password " +
-                                                                        "should be same"}</small>
-                                                                ) : null
-                                                            }
-                                                        </div>
                                                         <button type="submit" className={
                                                             "btn btn-primary btn-block"
-                                                        }>Reset Password</button>
+                                                        }>Send Reset Password Link</button>
                                                     </form>
                                                 )
                                         }

@@ -1,16 +1,15 @@
 import React from "react";
 import { Link } from 'react-router-dom';
 import { useForm } from "react-hook-form";
-import { useAuthContext } from "../../contexts/AuthContext";
+import { authenticateUser } from "../../services/authentication";
 
-export const signInFormOnSubmit = (authDispatch, formData) => {
-	// authenticateUser(formData, authDispatch);
+export const signInFormOnSubmit = (formData) => {
+	authenticateUser(formData);
 };
 
 const SignIn = () => {
 	const { register, handleSubmit, errors } = useForm();
 
-	const { authDispatch } = useAuthContext();
 	return (
 		<div className="container">
 			<div className="row justify-content-center">
@@ -26,9 +25,7 @@ const SignIn = () => {
 										</div>
 										<form
 											className="user"
-											onSubmit={handleSubmit(
-												signInFormOnSubmit.bind(null, authDispatch)
-											)}
+											onSubmit={handleSubmit(signInFormOnSubmit)}
 										>
 											<div className="form-group">
 												<input

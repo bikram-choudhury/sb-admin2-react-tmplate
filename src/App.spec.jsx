@@ -15,7 +15,7 @@ describe("Testing App", () => {
 
 	describe("check App prop-types", () => {
 		it("should not throw error", () => {
-			const props = { accessToken: "test" };
+			const props = { isAuthenticated: true };
 			// eslint-disable-next-line react/forbid-foreign-prop-types
 			const result = checkPropTypes(App.propTypes, props, "props", App.name);
 			expect(result).toBeUndefined();
@@ -49,7 +49,7 @@ describe("Testing App", () => {
 			component.unmount();
 		});
 		it("should return Redirect - component", () => {
-			const component = shallow(<App accessToken="test" />);
+			const component = shallow(<App isAuthenticated={true} />);
 			const instance = component.instance();
 			const result = instance.renderAuthRoutes();
 
@@ -59,7 +59,7 @@ describe("Testing App", () => {
 	});
 	describe("renderAdminRoute", () => {
 		it("should return Admin - component", () => {
-			const component = shallow(<App accessToken="test" />);
+			const component = shallow(<App isAuthenticated={true} />);
 			const instance = component.instance();
 			const result = instance.renderAdminRoute({ location: "/home" });
 
@@ -82,7 +82,7 @@ describe("Testing App", () => {
 			component.unmount();
 		});
 		it("should render ", () => {
-			component = shallow(<App accessToken="" />);
+			component = shallow(<App isAuthenticated={false} />);
 			const routeEl = component.find('Route[path="/"]');
 			expect(routeEl.first().prop("render")).toBe(
 				component.instance().renderAdminRoute
@@ -95,14 +95,14 @@ describe("Testing App", () => {
 			component.unmount();
 		});
 		it("Route: sign-in", () => {
-			component = shallow(<App accessToken="" />);
+			component = shallow(<App isAuthenticated={false} />);
 			const routeEl = component.find('Route[path="/sign-in"]');
 			expect(routeEl.first().prop("render")).toBe(
 				component.instance().renderAuthRoutes
 			);
 		});
 		it("Route: sign-up", () => {
-			component = shallow(<App accessToken="" />);
+			component = shallow(<App isAuthenticated={false} />);
 			const routeEl = component.find('Route[path="/sign-up"]');
 			expect(routeEl.first().prop("render")).toBe(
 				component.instance().renderAuthRoutes

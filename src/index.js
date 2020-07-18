@@ -11,7 +11,7 @@ import './assets/css/sb-admin-2.css';
 ReactDOM.render(
 	<AuthContextProvider>
 		<AuthContext.Consumer>
-			{context => <App accessToken={context.accessToken} />}
+			{context => <App isAuthenticated={!!context.user} />}
 		</AuthContext.Consumer>
 	</AuthContextProvider>,
 	document.getElementById("root")

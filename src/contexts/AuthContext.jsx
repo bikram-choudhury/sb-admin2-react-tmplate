@@ -10,7 +10,7 @@ export const AuthContextProvider = props => {
 	const localAuth = sessionStorage.getItem("auth");
 	const authState = localAuth
 		? JSON.parse(localAuth)
-		: { accessToken: "", refreshToken: "", tokenType: "" };
+		: { user: null };
 	const [ auth, dispatch ] = useReducer(AuthReducer, authState);
 
 	useEffect(() => {

@@ -1,6 +1,6 @@
 import React from "react";
 import { shallow } from "enzyme";
-import ForgotPassword, { passwordResetOnSubmit, validatePassword } from "./ForgotPassword";
+import ForgotPassword, { passwordResetOnSubmit } from "./ForgotPassword";
 import * as AuthApi from "../../services/authentication/authentication.api";
 import * as formHook from "react-hook-form";
 import { flushPromises } from '../../../jest.helper';
@@ -128,13 +128,5 @@ describe("Authentication", () => {
 		expect(callback).toHaveBeenCalledTimes(0);
 		expect(window.alert).toHaveBeenCalledTimes(1);
 		expect(window.alert).toHaveBeenCalledWith("Auth Error");
-	});
-	describe("validatePassword", () => {
-		it("should return true", () => {
-			expect(validatePassword("test", "test")).toBeTruthy();
-		});
-		it("should return false", () => {
-			expect(validatePassword("test", "false")).toBeFalsy();
-		});
 	});
 });
