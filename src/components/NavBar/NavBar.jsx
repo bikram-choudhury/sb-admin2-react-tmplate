@@ -4,11 +4,20 @@ import { auth } from './../../firebase';
 
 const NavBar = () => {
     const [ toggleDropdown, updateToggleDropdown ] = useState(false);
+    const [ toggleMsgs, updateToggleMsgs ] = useState(false);
+    const [ toggleAlerts, updateToggleAlerts ] = useState(false);
+
+    const { email } = auth.currentUser || {};
     const { user } = useAuthContext();
     const logout = () => {
         if (user) {
             auth.signOut();
         }
+    }
+    const resetAllDropdownState = () => {
+        updateToggleDropdown(false);
+        updateToggleMsgs(false);
+        updateToggleAlerts(false);
     }
     const userDropdownClass = `dropdown-menu dropdown-menu-right shadow animated--grow-in`;
     return (
@@ -78,30 +87,30 @@ const NavBar = () => {
                     </div>
                 </li>
 
-                <li className="nav-item dropdown no-arrow mx-1">
-                    <a
+                <li className={`nav-item dropdown no-arrow mx-1 ${toggleAlerts ? 'show' : ''}`}>
+                    <span
                         className="nav-link dropdown-toggle"
-                        href="xyz.html"
                         id="alertsDropdown"
                         role="button"
                         data-toggle="dropdown"
                         aria-haspopup="true"
-                        aria-expanded="false"
+                        aria-expanded={toggleAlerts ? true : false}
+                        onClick={() => {
+                            resetAllDropdownState();
+                            updateToggleAlerts(!toggleAlerts);
+                        }}
                     >
                         <i className="fas fa-bell fa-fw"></i>
                         {/* <!-- Counter - Alerts --> */}
                         <span className="badge badge-danger badge-counter">3+</span>
-                    </a>
+                    </span>
                     {/* <!-- Dropdown - Alerts --> */}
-                    <div
-                        className={
-                            `dropdown-list dropdown-menu dropdown-menu-right
-											shadow animated--grow-in`
-                        }
+                    <div className={`dropdown-list dropdown-menu dropdown-menu-right` +
+                        `shadow animated--grow-in ${toggleAlerts ? 'show' : ''}`}
                         aria-labelledby="alertsDropdown"
                     >
                         <h6 className="dropdown-header"> Alerts Center</h6>
-                        <a className="dropdown-item d-flex align-items-center" href="xyz.html">
+                        <span className="dropdown-item d-flex align-items-center">
                             <div className="mr-3">
                                 <div className="icon-circle bg-primary">
                                     <i className="fas fa-file-alt text-white"></i>
@@ -111,10 +120,10 @@ const NavBar = () => {
                                 <div className="small text-gray-500">December 12, 2019</div>
                                 <span className="font-weight-bold">
                                     A new monthly report is ready to download!
-												</span>
+                                </span>
                             </div>
-                        </a>
-                        <a className="dropdown-item d-flex align-items-center" href="xyz.html">
+                        </span>
+                        <span className="dropdown-item d-flex align-items-center">
                             <div className="mr-3">
                                 <div className="icon-circle bg-success">
                                     <i className="fas fa-donate text-white"></i>
@@ -124,8 +133,8 @@ const NavBar = () => {
                                 <div className="small text-gray-500">December 7, 2019</div>
                                 {`$290.29 has been deposited into your account!`}
                             </div>
-                        </a>
-                        <a className="dropdown-item d-flex align-items-center" href="xyz.html">
+                        </span>
+                        <span className="dropdown-item d-flex align-items-center">
                             <div className="mr-3">
                                 <div className="icon-circle bg-warning">
                                     <i className="fas fa-exclamation-triangle text-white"></i>
@@ -136,41 +145,36 @@ const NavBar = () => {
                                 {`Spending Alert: We've noticed unusually`}
                                 {`high spending for your account.`}
                             </div>
-                        </a>
-                        <a
-                            className="dropdown-item text-center small text-gray-500"
-                            href="xyz.html"
-                        >Show All Alerts</a>
+                        </span>
+                        <span className="dropdown-item text-center small text-gray-500">
+                            Show All Alerts
+                        </span>
                     </div>
                 </li>
 
-                <li className="nav-item dropdown no-arrow mx-1">
-                    <a
+                <li className={`nav-item dropdown no-arrow mx-1 ${toggleMsgs ? 'show' : ''}`}>
+                    <span
                         className="nav-link dropdown-toggle"
-                        href="xyz.html"
-                        id="messagesDropdown"
                         role="button"
                         data-toggle="dropdown"
                         aria-haspopup="true"
-                        aria-expanded="false"
+                        aria-expanded={toggleMsgs ? true : false}
+                        onClick={() => {
+                            resetAllDropdownState();
+                            updateToggleMsgs(!toggleMsgs);
+                        }}
                     >
                         <i className="fas fa-envelope fa-fw"></i>
                         {/* <!-- Counter - Messages --> */}
                         <span className="badge badge-danger badge-counter">7</span>
-                    </a>
+                    </span>
                     {/* <!-- Dropdown - Messages --> */}
-                    <div
-                        className={
-                            `dropdown-list dropdown-menu dropdown-menu-right 
-											shadow animated--grow-in`
-                        }
+                    <div className={`dropdown-list dropdown-menu dropdown-menu-right ` +
+                        `shadow animated--grow-in ${toggleMsgs ? 'show' : ''}`}
                         aria-labelledby="messagesDropdown"
                     >
                         <h6 className="dropdown-header">Message Center</h6>
-                        <a
-                            className="dropdown-item d-flex align-items-center"
-                            href="xyz.html"
-                        >
+                        <span className="dropdown-item d-flex align-items-center">
                             <div className="dropdown-list-image mr-3">
                                 <img
                                     className="rounded-circle"
@@ -188,11 +192,8 @@ const NavBar = () => {
                                 </div>
                                 <div className="small text-gray-500">Emily Fowler · 58m</div>
                             </div>
-                        </a>
-                        <a
-                            className="dropdown-item d-flex align-items-center"
-                            href="xyz.html"
-                        >
+                        </span>
+                        <span className="dropdown-item d-flex align-items-center">
                             <div className="dropdown-list-image mr-3">
                                 <img
                                     className="rounded-circle"
@@ -210,8 +211,8 @@ const NavBar = () => {
                                 </div>
                                 <div className="small text-gray-500">Jae Chun · 1d</div>
                             </div>
-                        </a>
-                        <a className="dropdown-item d-flex align-items-center" href="xyz.html">
+                        </span>
+                        <span className="dropdown-item d-flex align-items-center">
                             <div className="dropdown-list-image mr-3">
                                 <img
                                     className="rounded-circle"
@@ -223,15 +224,15 @@ const NavBar = () => {
                             <div>
                                 <div className="text-truncate">
                                     {
-                                        `Last month's report looks great, 
-														I am very happy with the progress so far, 
-														keep up the good work!`
+                                        "Last month's report looks great, " +
+                                        "I am very happy with the progress so far, " +
+                                        "keep up the good work!"
                                     }
                                 </div>
                                 <div className="small text-gray-500">Morgan Alvarez · 2d</div>
                             </div>
-                        </a>
-                        <a className="dropdown-item d-flex align-items-center" href="xyz.html">
+                        </span>
+                        <span className="dropdown-item d-flex align-items-center">
                             <div className="dropdown-list-image mr-3">
                                 <img
                                     className="rounded-circle"
@@ -243,18 +244,17 @@ const NavBar = () => {
                             <div>
                                 <div className="text-truncate">
                                     {
-                                        `Am I a good boy? The reason I ask is 
-                                        because someone told me that people say this 
-                                        to all dogs, even if they aren't good...`
+                                        "Am I a good boy? The reason I ask is " +
+                                        "because someone told me that people say this " +
+                                        "to all dogs, even if they aren't good..."
                                     }
                                 </div>
                                 <div className="small text-gray-500">Chicken the Dog · 2w</div>
                             </div>
-                        </a>
-                        <a
-                            className="dropdown-item text-center small text-gray-500"
-                            href="xyz.html"
-                        >Read More Messages</a>
+                        </span>
+                        <span className="dropdown-item text-center small text-gray-500">
+                            Read More Messages
+                        </span>
                     </div>
                 </li>
 
@@ -268,11 +268,14 @@ const NavBar = () => {
                         data-toggle="dropdown"
                         aria-haspopup="true"
                         aria-expanded={toggleDropdown ? true : false}
-                        onClick={() => updateToggleDropdown(!toggleDropdown)}
+                        onClick={() => {
+                            resetAllDropdownState();
+                            updateToggleDropdown(!toggleDropdown)
+                        }}
                     >
-                        <span
-                            className="mr-2 d-none d-lg-inline text-gray-600 small"
-                        >Valerie Luna</span>
+                        <span className={
+                            "mr-2 d-none d-lg-inline text-gray-600 small username-ellipsis"
+                        } title={email}>{email}</span>
                         <img
                             className="img-profile rounded-circle"
                             src="https://source.unsplash.com/QAB-WJcbgJk/60x60"
@@ -284,18 +287,18 @@ const NavBar = () => {
                         className={`${userDropdownClass} ${toggleDropdown ? 'show' : ''}`}
                         aria-labelledby="userDropdown"
                     >
-                        <a className="dropdown-item" href="x.html">
+                        <span className="dropdown-item">
                             <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                             profile
-                        </a>
-                        <a className="dropdown-item" href="x.html">
+                        </span>
+                        <span className="dropdown-item">
                             <i className="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                             Settings
-                        </a>
-                        <a className="dropdown-item" href="x.html">
+                        </span>
+                        <span className="dropdown-item">
                             <i className="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                             Activity Log
-                        </a>
+                        </span>
                         <div className="dropdown-divider"></div>
                         <span className="dropdown-item" onClick={logout}>
                             <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>

@@ -3073,6 +3073,11 @@ input[type="button"].btn-block {
   border: 0;
   cursor: pointer;
 }
+.username-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 150px;
+}
 
 .dropdown-item:hover, .dropdown-item:focus {
   color: #2e2f37;
