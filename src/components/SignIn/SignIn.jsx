@@ -1,12 +1,37 @@
 import React from "react";
 import { Link } from 'react-router-dom';
 import { useForm } from "react-hook-form";
-import { authenticateUser } from "../../services/authentication";
+import {
+	authenticateUser,
+	loginWithGoogle,
+	loginWithFacebook,
+	loginWithGithub
+} from "../../services/authentication";
 
 export const signInFormOnSubmit = (formData) => {
 	authenticateUser(formData);
 };
-
+const loginWithSocialAccount = (type) => {
+	let socialAuthPromise = null;
+	switch (type) {
+		case 'google':
+			socialAuthPromise = loginWithGoogle;
+			break;
+		case 'facebook':
+			socialAuthPromise = loginWithFacebook;
+			break;
+		case 'github':
+			socialAuthPromise = loginWithGithub;
+			break;
+		default:
+			break;
+	}
+	socialAuthPromise().then(socialAuthUser => {
+		console.log(socialAuthUser);
+	}).catch(error => {
+		console.log(error);
+	});
+}
 const SignIn = () => {
 	const { register, handleSubmit, errors } = useForm();
 
@@ -90,13 +115,29 @@ const SignIn = () => {
 												Login
 											</button>
 											<hr />
-											<button className="btn btn-google btn-user btn-block">
-												<i className="fab fa-google fa-fw"></i> Login with
-												Google
+											<button
+												className="btn btn-google btn-user btn-block"
+												type="button"
+												onClick={loginWithSocialAccount.bind(null, 'google')}
+											>
+												<i className="fab fa-google fa-fw"></i>
+												Login with Google
 											</button>
-											<button className="btn btn-facebook btn-user btn-block">
-												<i className="fab fa-facebook-f fa-fw"></i> Login with
-												Facebook
+											<button
+												className="btn btn-facebook btn-user btn-block"
+												type="button"
+												onClick={loginWithSocialAccount.bind(null, 'facebook')}
+											>
+												<i className="fab fa-facebook-f fa-fw"></i>
+												Login with Facebook
+											</button>
+											<button
+												className="btn btn-github btn-user btn-block"
+												type="button"
+												onClick={loginWithSocialAccount.bind(null, 'github')}
+											>
+												<i className="fab fa-github fa-fw"></i>
+												Login with Github
 											</button>
 										</form>
 										<hr />
