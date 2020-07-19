@@ -144,14 +144,6 @@ const SignUp = () => {
 										{" "}
 										Register Account{" "}
 									</button>
-									<hr />
-									<span className="btn btn-google btn-user btn-block">
-										<i className="fab fa-google fa-fw"></i> Register with Google
-									</span>
-									<span className="btn btn-facebook btn-user btn-block">
-										<i className="fab fa-facebook-f fa-fw"></i> Register with
-										Facebook
-									</span>
 								</form>
 								<hr />
 								<div className="text-center">
